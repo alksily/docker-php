@@ -3,5 +3,5 @@
 Build container manually
 
 ```shell script
-docker build --no-cache -t alksily/php .
+docker build --no-cache -t alksily/php:latest .
 ```
