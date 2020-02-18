@@ -16,8 +16,6 @@ RUN apt-get update -y && \
         zip \
         gd \
         pdo_mysql \
-        pdo_pgsql \
-        pdo_sqlite \
         mbstring && \
     docker-php-ext-enable \
         opcache.so \
