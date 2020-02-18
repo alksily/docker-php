@@ -1,6 +1,7 @@
 FROM php:7.3-fpm
 RUN apt-get update -y && \
     apt-get install --no-install-recommends -y \
+        gettext \
         libzip-dev \
         zlib1g-dev \
         jpegoptim \
