@@ -32,7 +32,7 @@ RUN locale-gen && \
         pdo_mysql && \
     docker-php-ext-enable \
         opcache.so \
-        imagick && \
+        imagick
 
 # Cleanup
 RUN apt-get clean && \
