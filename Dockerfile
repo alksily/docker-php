@@ -1,12 +1,7 @@
 FROM php:7.3-fpm
 
-RUN echo "en_US UTF-8" >> /etc/locale.gen && \
-    echo "ru_RU UTF-8" >> /etc/locale.gen && \
-    echo "uk_UA UTF-8" >> /etc/locale.gen && \
-    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
-    echo "ru_RU.UTF-8 UTF-8" >> /etc/locale.gen && \
-    echo "uk_UA.UTF-8 UTF-8" >> /etc/locale.gen && \
-    apt-get update -y && \
+# Install software
+RUN apt-get update -y && \
     apt-get install --no-install-recommends -y \
         locales \
         gettext \
@@ -17,8 +12,17 @@ RUN echo "en_US UTF-8" >> /etc/locale.gen && \
         pngquant \
         gifsicle \
         libmagickwand-dev \
-        imagemagick && \
-    locale-gen && \
+        imagemagick
+
+# Set locales
+RUN echo "ru_RU.UTF-8 UTF-8" >> /etc/locale.gen && \
+    echo "be_BY.UTF-8 UTF-8" >> /etc/locale.gen && \
+    echo "uk_UA.UTF-8 UTF-8" >> /etc/locale.gen && \
+    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
+    locale-gen
+
+# Setting up service
+RUN locale-gen && \
     pecl install imagick && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-install \
@@ -29,7 +33,9 @@ RUN echo "en_US UTF-8" >> /etc/locale.gen && \
     docker-php-ext-enable \
         opcache.so \
         imagick && \
-    apt-get clean && \
+
+# Cleanup
+RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     rm /var/log/lastlog /var/log/faillog
 
