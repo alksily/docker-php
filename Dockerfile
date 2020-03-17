@@ -1,10 +1,12 @@
 FROM php:7.3-fpm
+MAINTAINER Aleksey Ilyin <alksily@outlook.com>
 
 # Install software
 RUN apt-get update -y && \
     apt-get install --no-install-recommends -y \
         locales \
         gettext \
+        libfann-dev \
         libzip-dev \
         zlib1g-dev \
         jpegoptim \
@@ -24,6 +26,7 @@ RUN echo "ru_RU.UTF-8 UTF-8" >> /etc/locale.gen && \
 # Setting up service
 RUN locale-gen && \
     pecl install imagick && \
+    pecl install fann && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-install \
         gettext \
@@ -32,6 +35,7 @@ RUN locale-gen && \
         pdo_mysql && \
     docker-php-ext-enable \
         opcache.so \
+        fann \
         imagick
 
 # Cleanup
