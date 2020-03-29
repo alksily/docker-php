@@ -6,7 +6,7 @@ RUN apt-get update -y && \
     apt-get install --no-install-recommends -y \
         locales \
         gettext \
-        libfann-dev \
+#       libfann-dev \
         libzip-dev \
         zlib1g-dev \
         jpegoptim \
@@ -26,7 +26,7 @@ RUN echo "ru_RU.UTF-8 UTF-8" >> /etc/locale.gen && \
 # Setting up service
 RUN locale-gen && \
     pecl install imagick && \
-    pecl install fann && \
+#   pecl install fann && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-install \
         gettext \
@@ -35,7 +35,7 @@ RUN locale-gen && \
         pdo_mysql && \
     docker-php-ext-enable \
         opcache.so \
-        fann \
+#       fann \
         imagick
 
 # Cleanup
