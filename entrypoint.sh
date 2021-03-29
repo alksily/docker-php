@@ -1,1 +1,3 @@
-#!/usr/bin/env bash/usr/bin/supervisord
+#!/usr/bin/env bash
+
+/usr/bin/supervisord
